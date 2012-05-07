@@ -1,1 +1,1 @@
-from .base import SimpleTest
+from .context_processors import CurrentPlacementsTestCase
