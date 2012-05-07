@@ -2,13 +2,15 @@
 
 from django.db import models
 
+from .validators import validate_pattern
+
 
 class Section(models.Model):
     "A grouping of site urls."
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
-    pattern = models.CharField(max_length=200)
+    pattern = models.CharField(max_length=200, validators=[validate_pattern, ])
 
     def __unicode__(self):
         return self.name
