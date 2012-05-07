@@ -31,6 +31,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=100)),
+            ('remote_id', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('size', self.gf('django.db.models.fields.related.ForeignKey')(related_name='placements', to=orm['adcode.Size'])),
         ))
         db.send_create_signal('adcode', ['Placement'])
@@ -61,6 +62,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Placement'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'remote_id': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'sections': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'placements'", 'symmetrical': 'False', 'to': "orm['adcode.Section']"}),
             'size': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'placements'", 'to': "orm['adcode.Size']"}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'})

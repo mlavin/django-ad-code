@@ -30,6 +30,7 @@ class Placement(models.Model):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
+    remote_id = models.CharField(max_length=200)
     size = models.ForeignKey(Size, related_name='placements')
     sections = models.ManyToManyField(Section, related_name='placements')
 
