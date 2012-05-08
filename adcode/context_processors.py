@@ -2,6 +2,7 @@
 
 import re
 
+from .conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
 from .models import Section, Placement
 
 
@@ -18,4 +19,4 @@ def current_placements(request):
             break
     if current:
         placements = Placement.objects.filter(sections=current).select_related('size')
-    return {'adcode-section': current, 'adcode-placements': placements}
+    return {SECTION_CONTEXT_KEY: current, PLACEMENTS_CONTEXT_KEY: placements}
