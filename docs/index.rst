@@ -12,7 +12,7 @@ Contents
     :maxdepth: 2
 
     quick-start
-
+    releases
 
 
 Indices and tables
