@@ -2,6 +2,7 @@
 
 from django.db import models
 
+from .conf import PLACEHOLDER_TEMPLATE
 from .validators import validate_pattern
 
 
@@ -24,7 +25,7 @@ class Size(models.Model):
     height = models.PositiveSmallIntegerField()
 
     def __unicode__(self):
-        return u'{0} ({1}x{2})'.format(self.name, self.width, self.height)
+        return u'{0} {1}x{2}'.format(self.name, self.width, self.height)
 
 
 class Placement(models.Model):
@@ -38,3 +39,8 @@ class Placement(models.Model):
 
     def __unicode__(self):
         return u'{0} ({1})'.format(self.name, self.size)
+
+    @property
+    def placeholder_link(self):
+        size = {'width': self.size.width, 'height': self.size.height}
+        return PLACEHOLDER_TEMPLATE.format(**size)
