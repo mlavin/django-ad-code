@@ -66,19 +66,18 @@ and step JS needed. In your <body> you would render individual placements with
 
     .. code-block:: html
 
-    {% load adcode_tags %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <!-- Other meta, css, js -->
-        {% render_section_header %}
-    </head>
-    <body>
-        <!-- Various body content -->
-        {% render_placement 'footer' %}
-    </body>
-    </html>
+        {% load adcode_tags %}
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <!-- Other meta, css, js -->
+            {% render_section_header %}
+        </head>
+        <body>
+            <!-- Various body content -->
+            {% render_placement 'footer' %}
+        </body>
+        </html>
 
-Continue on to learn about customizing how these tags render and how to use
-django-ad-code with a few common providers.
+Continue on to learn about customizing how these tags render.
 
