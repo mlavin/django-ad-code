@@ -4,6 +4,7 @@ from django import template
 from django.conf import settings
 
 from .conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
+from .models import Placement
 
 register = template.Library()
 
@@ -66,3 +67,63 @@ def render_section_header(parser, token):
     Usage: {% render_section_header %}
     """
     return SectionHeaderTemplateNode()
+
+
+class PlacementTemplateNode(BaseSectionTemplateNode):
+    "Render a placement from the current section."
+
+    def __init__(self, slug):
+        self.slug = template.Variable(slug)
+
+    def get_current_placement(self, context):
+        "Grab current placement from the context."
+        placement = None
+        placements = context.get(PLACEMENTS_CONTEXT_KEY, None)
+        if placements is not None:
+            try:
+                slug = self.slug.resolve(context)
+            except template.VariableDoesNotExist:
+                # Fall through to return None
+                pass
+            else:
+                try:
+                    placement = placements.get(slug=slug)
+                    return placement
+                except Placement.DoesNotExist:
+                    # Fall through to return None
+                    pass
+        return None
+
+    def get_template_list(self, context):
+        "Build template list from current section"
+        section = self.get_current_section(context)
+        placement = self.get_current_placement(context)
+        templates = []
+        if section is not None and placement is not None:
+            templates = [
+                # Placement specific template
+                u'adcode/{0}/{1}-placement.html'.format(placement.slug),
+                # Section specific placement
+                u'adcode/{0}/placement.html'.format(section.slug),
+                # Default template
+                u'adcode/placement.html'
+            ]
+        return templates
+
+
+@register.tag
+def render_placement(parser, token):
+    """
+    Retrieves a placement by slug from the context and renders the
+    appropriate template. Requires the template to be rendered with
+    a RequestContext and 'adcode.context_processors.current_placements' in 
+    TEMPLATE_CONTEXT_PROCESSORS.
+
+    Usage: {% render_placement 'header' %}
+    """
+    try:
+        tag_name, slug = token.split_contents()
+    except ValueError:
+        msg = u"{0} tag requires exactly one argument.".format(token.contents.split())
+        raise template.TemplateSyntaxError(msg)
+    return PlacementTemplateNode(slug=slug)
