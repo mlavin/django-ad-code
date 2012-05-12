@@ -41,6 +41,6 @@ class Placement(models.Model):
         return u'{0} ({1})'.format(self.name, self.size)
 
     @property
-    def placeholder_link(self):
+    def placeholder(self):
         size = {'width': self.size.width, 'height': self.size.height}
         return PLACEHOLDER_TEMPLATE.format(**size)
