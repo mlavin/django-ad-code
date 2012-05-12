@@ -21,7 +21,7 @@ class BaseSectionTemplateNode(template.Node):
 
     def get_template_list(self, context):
         "Construct list of templates to render. Implemented in subclasses."
-        raise NotImplemented()
+        raise NotImplemented() # pragma: no cover
 
     def get_template_context(self, context):
         "Context passed to the sub-template."

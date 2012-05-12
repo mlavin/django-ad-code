@@ -1,3 +1,3 @@
 from .context_processors import CurrentPlacementsTestCase
-from .templatetags import RenderHeaderTestCase
+from .templatetags import RenderHeaderTestCase, RenderPlacementTestCase
 from .validators import PatternValidatorTestCase
