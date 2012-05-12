@@ -59,9 +59,9 @@ If you are also using South then you should run ``migrate`` instead::
 Using Ad Data in the Template
 ------------------------------------
 
-The django-ad-code context processor adds two keys ``adcode-section`` and 
-``adcode-placement`` to the template context. ``adcode-section`` is the currently
+The django-ad-code context processor adds two keys ``acsection`` and 
+``acplacements`` to the template context. ``acsection`` is the currently
 matched Section based on the current url and the data in the Section models. If
-there is no match then this will be ``None``. ``adcode-placement`` a list
+there is no match then this will be ``None``. ``acplacements`` a list
 of Placements related to the current Section.
 
