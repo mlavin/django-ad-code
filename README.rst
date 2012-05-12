@@ -2,9 +2,9 @@ django-ad-code
 ===================
 
 django-ad-code is a reusable application for managing and rendering ad tags 
-from ad networks or exchanges such Adsense, DoubleClick or OpenX.
+from third-party ad server or ad network such Adsense, DoubleClick or OpenX.
 
-django-ad-code is *not* an ad server or ad management systme. It is simply a tool 
+django-ad-code is *not* an ad server or full ad management system. It is simply a tool 
 to help you manage the ad tags needed to use an ad network.
 
 

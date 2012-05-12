@@ -4,7 +4,7 @@ Release History
 Release and change history for django-ad-code
 
 
-v0.2.0
+v0.2.0 (Released 2012-05-12)
 ------------------------------------
 
 Features
