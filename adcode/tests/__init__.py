@@ -1,2 +1,3 @@
 from .context_processors import CurrentPlacementsTestCase
+from .templatetags import RenderHeaderTestCase
 from .validators import PatternValidatorTestCase
