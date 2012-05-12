@@ -34,7 +34,7 @@ class Placement(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     remote_id = models.CharField(max_length=200)
     size = models.ForeignKey(Size, related_name='placements')
-    sections = models.ManyToManyField(Section, related_name='placements')
+    sections = models.ManyToManyField(Section, blank=True, related_name='placements')
 
     def __unicode__(self):
         return u'{0} ({1})'.format(self.name, self.size)
