@@ -19,6 +19,10 @@ class BaseSectionTemplateNode(template.Node):
         "Grab current section from the context."
         return context.get(SECTION_CONTEXT_KEY, None)
 
+    def get_current_placements(self, context):
+        "Grab current placements from the context."
+        return context.get(PLACEMENTS_CONTEXT_KEY, None)
+
     def get_template_list(self, context):
         "Construct list of templates to render. Implemented in subclasses."
         raise NotImplemented() # pragma: no cover
@@ -55,6 +59,7 @@ class SectionHeaderTemplateNode(BaseSectionTemplateNode):
         "Context passed to the sub-template."
         defaults = super(SectionHeaderTemplateNode, self).get_template_context(context)
         defaults['section'] = self.get_current_section(context)
+        defaults['placements'] = self.get_current_placements(context)
         return defaults
 
     def get_template_list(self, context):
@@ -92,7 +97,7 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
 
     def get_current_placement(self, context):
         "Grab current placement from the context."
-        placements = context.get(PLACEMENTS_CONTEXT_KEY, None)
+        placements = self.get_current_placements(context)
         if placements is not None:
             try:
                 slug = self.slug.resolve(context)
