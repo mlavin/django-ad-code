@@ -3,8 +3,8 @@
 from django import template
 from django.conf import settings
 
-from .conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
-from .models import Placement
+from adcode.conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
+from adcode.models import Placement
 
 register = template.Library()
 
@@ -25,13 +25,22 @@ class BaseSectionTemplateNode(template.Node):
 
     def get_template_context(self, context):
         "Context passed to the sub-template."
-        return {}
+        defaults = {
+            'autoescape': context.autoescape,
+            'current_app': context.get('current_app', None),
+            'use_l10n': context.get('use_l10n', True),
+            'use_tz': context.get('use_tz', True),
+            'debug': settings.DEBUG,
+            'MEDIA_URL': settings.MEDIA_URL,
+            'STATIC_URL': settings.STATIC_URL,
+        }
+        return template.context.Context(defaults)
 
     def render(self, context):
         "Render a template from a list of possible templates based on the context."
         templates = self.get_template_list(context)
         if templates:
-            inner = loader.select_template(templates)
+            inner = template.loader.select_template(templates)
             self.nodelist = inner.nodelist
             new_context = self.get_template_context(context)
             return self.nodelist.render(new_context)
@@ -41,6 +50,12 @@ class BaseSectionTemplateNode(template.Node):
 
 class SectionHeaderTemplateNode(BaseSectionTemplateNode):
     "Render section header template for the current section."
+
+    def get_template_context(self, context):
+        "Context passed to the sub-template."
+        defaults = super(SectionHeaderTemplateNode, self).get_template_context(context)
+        defaults['section'] = self.get_current_section(context)
+        return defaults
 
     def get_template_list(self, context):
         "Build template list from current section"
@@ -77,7 +92,6 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
 
     def get_current_placement(self, context):
         "Grab current placement from the context."
-        placement = None
         placements = context.get(PLACEMENTS_CONTEXT_KEY, None)
         if placements is not None:
             try:
@@ -94,6 +108,13 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
                     pass
         return None
 
+    def get_template_context(self, context):
+        "Context passed to the sub-template."
+        defaults = super(PlacementTemplateNode, self).get_template_context(context)
+        defaults['section'] = self.get_current_section(context)
+        defaults['placement'] = self.get_current_placement(context)
+        return defaults
+
     def get_template_list(self, context):
         "Build template list from current section"
         section = self.get_current_section(context)
@@ -102,7 +123,7 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
         if section is not None and placement is not None:
             templates = [
                 # Placement specific template
-                u'adcode/{0}/{1}-placement.html'.format(placement.slug),
+                u'adcode/{0}/{1}-placement.html'.format(section.slug, placement.slug),
                 # Section specific placement
                 u'adcode/{0}/placement.html'.format(section.slug),
                 # Default template
