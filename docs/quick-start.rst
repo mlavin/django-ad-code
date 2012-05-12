@@ -59,9 +59,26 @@ If you are also using South then you should run ``migrate`` instead::
 Using Ad Data in the Template
 ------------------------------------
 
-The django-ad-code context processor adds two keys ``acsection`` and 
-``acplacements`` to the template context. ``acsection`` is the currently
-matched Section based on the current url and the data in the Section models. If
-there is no match then this will be ``None``. ``acplacements`` a list
-of Placements related to the current Section.
+The django-ad-code includes two template tags to help rendering ad placements.
+``render_section_header`` would be included in your html <head> and would include
+and step JS needed. In your <body> you would render individual placements with
+``render_placement`` which takes the slug for the placement.
+
+    .. code-block:: html
+
+    {% load adcode_tags %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <!-- Other meta, css, js -->
+        {% render_section_header %}
+    </head>
+    <body>
+        <!-- Various body content -->
+        {% render_placement 'footer' %}
+    </body>
+    </html>
+
+Continue on to learn about customizing how these tags render and how to use
+django-ad-code with a few common providers.
 
