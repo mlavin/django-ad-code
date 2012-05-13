@@ -29,7 +29,13 @@ class QueryCountsTestCase(TemplateTagTestCase):
         "Number of queries for the context processor with no cache."
         with self.assertNumQueries(1):
             # Single query to get check path vs. section patterns
-            context = current_placements(self.request)
+            current_placements(self.request)
+
+    def test_context_processor_cache(self):
+        "Subsequent calls through the context process should be cached."
+        current_placements(self.request)
+        with self.assertNumQueries(0):
+            current_placements(self.request)
 
     def test_render_header(self):
         "Number of queries to render header with no cache."
