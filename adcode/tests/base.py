@@ -3,6 +3,7 @@
 import random
 import string
 
+from django.core.cache import cache
 from django.test import TestCase
 
 from adcode.models import Section, Size, Placement
@@ -10,6 +11,9 @@ from adcode.models import Section, Size, Placement
 
 class AdCodeDataTestCase(TestCase):
     "Base test case for creating adcode models."
+
+    def tearDown(self):
+        cache.clear()
 
     def get_random_string(self, length=10):
         return u''.join(random.choice(string.ascii_letters) for x in xrange(length))

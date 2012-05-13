@@ -1,8 +1,11 @@
 "Models for managing site sections and ad placements."
 
+from django.core.cache import cache
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
-from .conf import PLACEHOLDER_TEMPLATE
+from .conf import PLACEHOLDER_TEMPLATE, CACHE_TIMEOUT, SECTION_CACHE_KEY
 from .validators import validate_pattern
 
 
@@ -16,6 +19,23 @@ class Section(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+def retrieve_all_sections():
+    "Get all sections from the cache or query the database."
+    sections = cache.get(SECTION_CACHE_KEY, None)
+    if sections is None:
+        sections = list(Section.objects.order_by('-priority'))
+        cache.set(SECTION_CACHE_KEY, sections, CACHE_TIMEOUT)
+    return sections
+
+
+@receiver(post_save, sender=Section)
+@receiver(post_delete, sender=Section)
+def cycle_sections_cache(sender, **kwargs):
+    "Delete and restore section info in the cache."
+    cache.delete(SECTION_CACHE_KEY)
+    retrieve_all_sections()
 
 
 class Size(models.Model):

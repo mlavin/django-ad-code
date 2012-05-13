@@ -16,12 +16,14 @@ class TemplateTagTestCase(AdCodeDataTestCase):
     "Base case to patch TEMPLATE_DIRS while running tests."
 
     def setUp(self):
+        super(TemplateTagTestCase, self).setUp()
         self.template_dirs = settings.TEMPLATE_DIRS
         settings.TEMPLATE_DIRS = (
             os.path.join(os.path.dirname(__file__), 'templates'),
         )
 
     def tearDown(self):
+        super(TemplateTagTestCase, self).tearDown()
         settings.TEMPLATE_DIRS = self.template_dirs
         del self.template_dirs
 
