@@ -12,6 +12,7 @@ class Section(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     pattern = models.CharField(max_length=200, validators=[validate_pattern, ])
+    priority = models.PositiveSmallIntegerField(default=0)
 
     def __unicode__(self):
         return self.name
