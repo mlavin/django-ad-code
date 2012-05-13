@@ -3,6 +3,14 @@ Release History
 
 Release and change history for django-ad-code
 
+v0.3.0 (TBD)
+------------------------------------
+
+Features
+_________________
+
+- Added width/height properties to Placement model
+
 
 v0.2.0 (Released 2012-05-12)
 ------------------------------------

@@ -42,5 +42,13 @@ class Placement(models.Model):
 
     @property
     def placeholder(self):
-        size = {'width': self.size.width, 'height': self.size.height}
+        size = {'width': self.width, 'height': self.height}
         return PLACEHOLDER_TEMPLATE.format(**size)
+
+    @property
+    def width(self):
+        return self.size.width
+
+    @property
+    def height(self):
+        return self.size.height
