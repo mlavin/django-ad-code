@@ -51,3 +51,11 @@ class CurrentPlacementsTestCase(AdCodeDataTestCase):
         context = current_placements(request)
         placements = context[PLACEMENTS_CONTEXT_KEY]
         self.assertEqual(placements.count(), 0)
+
+    def test_match_priority(self):
+        "Resolve overlapping regex patterns by using priority flag."
+        request = self.factory.get('/foo/bar')
+        section = self.create_section(pattern='^/foo/', priority=0)
+        other_section = self.create_section(pattern='^/foo/bar', priority=1)
+        context = current_placements(request)
+        self.assertEqual(context[SECTION_CONTEXT_KEY], other_section)
