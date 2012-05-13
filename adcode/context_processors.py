@@ -11,7 +11,7 @@ def current_placements(request):
     # TODO: Add caching
     current = None
     placements = Placement.objects.none()
-    sections = Section.objects.all()
+    sections = Section.objects.order_by('-priority')
     for section in sections:
         pattern = re.compile(section.pattern)
         if pattern.search(request.path):
