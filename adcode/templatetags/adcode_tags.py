@@ -45,9 +45,9 @@ class BaseSectionTemplateNode(template.Node):
         templates = self.get_template_list(context)
         if templates:
             inner = template.loader.select_template(templates)
-            self.nodelist = inner.nodelist
+            nodelist = inner.nodelist
             new_context = self.get_template_context(context)
-            return self.nodelist.render(new_context)
+            return nodelist.render(new_context)
         else:
             return ''
 
@@ -99,18 +99,18 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
         "Grab current placement from the context."
         placements = self.get_current_placements(context)
         if placements is not None:
-            try:
-                slug = self.slug.resolve(context)
-            except template.VariableDoesNotExist:
-                # Fall through to return None
-                pass
-            else:
+            if self not in context.render_context:
                 try:
-                    placement = placements.get(slug=slug)
-                    return placement
-                except Placement.DoesNotExist:
-                    # Fall through to return None
-                    pass
+                    slug = self.slug.resolve(context)
+                except template.VariableDoesNotExist:
+                    placement = None
+                else:
+                    try:
+                        placement = placements.get(slug=slug)
+                    except Placement.DoesNotExist:
+                        placement = None
+                context.render_context[self] = placement
+            return context.render_context[self]
         return None
 
     def get_template_context(self, context):
