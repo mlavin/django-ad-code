@@ -10,6 +10,7 @@ class PlacementInline(admin.StackedInline):
 
 
 class SectionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'pattern', )
     inlines = (PlacementInline, )
     prepopulated_fields = {'slug': ('name', )}
    
@@ -23,6 +24,7 @@ class PlacementAdmin(admin.ModelAdmin):
     list_display = ('name', 'size', )
     list_filter = ('size', 'sections', )
     filter_horizontal = ('sections', )
+    prepopulated_fields = {'slug': ('name', )}
 
 
 admin.site.register(Section, SectionAdmin)
