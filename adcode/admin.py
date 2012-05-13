@@ -10,9 +10,11 @@ class PlacementInline(admin.StackedInline):
 
 
 class SectionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'pattern', )
+    list_display = ('name', 'pattern', 'priority', )
+    list_editable = ('priority', )
     inlines = (PlacementInline, )
     prepopulated_fields = {'slug': ('name', )}
+    ordering = ('-priority', 'name', )
    
 
 class SizeAdmin(admin.ModelAdmin):
