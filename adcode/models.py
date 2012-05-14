@@ -5,7 +5,8 @@ from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from .conf import PLACEHOLDER_TEMPLATE, CACHE_TIMEOUT, SECTION_CACHE_KEY
+from .conf import PLACEHOLDER_TEMPLATE
+from .conf import CACHE_TIMEOUT, SECTION_CACHE_KEY, PLACEMENTS_KEY_FORMAT
 from .validators import validate_pattern
 
 
@@ -73,3 +74,13 @@ class Placement(models.Model):
     @property
     def height(self):
         return self.size.height
+
+
+def retrieve_section_placements(section):
+    "Get all placements for the section from the cache or query the database."
+    cache_key = PLACEMENTS_KEY_FORMAT.format(section.pk)
+    placements = cache.get(cache_key, None)
+    if placements is None:
+        placements = list(Placement.objects.filter(sections=section).select_related('size'))
+        cache.set(cache_key, placements, CACHE_TIMEOUT)
+    return placements

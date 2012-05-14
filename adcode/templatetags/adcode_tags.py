@@ -106,8 +106,8 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
                     placement = None
                 else:
                     try:
-                        placement = placements.get(slug=slug)
-                    except Placement.DoesNotExist:
+                        placement = filter(lambda p: p.slug == slug, placements)[0]
+                    except IndexError:
                         placement = None
                 context.render_context[self] = placement
             return context.render_context[self]

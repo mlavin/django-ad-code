@@ -3,7 +3,7 @@
 import re
 
 from .conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
-from .models import retrieve_all_sections, Placement
+from .models import retrieve_all_sections, retrieve_section_placements, Placement
 
 
 def current_placements(request):
@@ -17,5 +17,5 @@ def current_placements(request):
             current = section
             break
     if current:
-        placements = Placement.objects.filter(sections=current).select_related('size')
+        placements = retrieve_section_placements(current)
     return {SECTION_CONTEXT_KEY: current, PLACEMENTS_CONTEXT_KEY: placements}

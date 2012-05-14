@@ -15,4 +15,6 @@ PLACEHOLDER_TEMPLATE = getattr(settings, 'ADCODE_PLACEHOLDER_TEMPLATE', PLACEHOL
 
 SECTION_CACHE_KEY = 'alladcodesections'
 
+PLACEMENTS_KEY_FORMAT = 'adcodeplacements{0}'
+
 CACHE_TIMEOUT = 60 * 60 * 12 # 12 Hours

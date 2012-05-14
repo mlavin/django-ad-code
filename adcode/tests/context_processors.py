@@ -41,7 +41,7 @@ class CurrentPlacementsTestCase(AdCodeDataTestCase):
         placement.sections.add(section)
         context = current_placements(request)
         placements = context[PLACEMENTS_CONTEXT_KEY]
-        self.assertEqual(placements.count(), 1)
+        self.assertEqual(len(placements), 1)
         self.assertTrue(placement in placements)
 
     def test_match_url_no_placements(self):
@@ -50,7 +50,7 @@ class CurrentPlacementsTestCase(AdCodeDataTestCase):
         section = self.create_section(pattern='^/foo/')
         context = current_placements(request)
         placements = context[PLACEMENTS_CONTEXT_KEY]
-        self.assertEqual(placements.count(), 0)
+        self.assertEqual(len(placements), 0)
 
     def test_match_priority(self):
         "Resolve overlapping regex patterns by using priority flag."

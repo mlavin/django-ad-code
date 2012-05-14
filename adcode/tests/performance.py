@@ -25,8 +25,9 @@ class QueryCountsTestCase(TemplateTagTestCase):
     def test_context_processor_no_cache(self):
         "Number of queries for the context processor with no cache."
         cache.clear()
-        with self.assertNumQueries(1):
-            # Single query to get check path vs. section patterns
+        with self.assertNumQueries(2):
+            # One query to get all current sections
+            # One query to get all placements the current section
             current_placements(self.request)
 
     def test_context_processor_cached(self):
@@ -51,8 +52,8 @@ class QueryCountsTestCase(TemplateTagTestCase):
         )
         context = RequestContext(self.request, {})
         cache.clear()
-        with self.assertNumQueries(1):
-            # One query to fetch placement from context
+        with self.assertNumQueries(0):
+            # All queries are executed and cached in the context processor
             template.render(context)
 
     def test_render_placement_cached(self):
@@ -78,5 +79,6 @@ class QueryCountsTestCase(TemplateTagTestCase):
         )
         context = RequestContext(self.request, {})
         cache.clear()
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(0):
+            # All queries are executed and cached in the context processor
             template.render(context)
