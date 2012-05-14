@@ -19,6 +19,7 @@ _________________
 - Added width/height properties to Placement model.
 - Added priority field for Sections to resolve overlapping regex patterns.
 - Additional defaults for model admin clases.
+- Caching and performance improvements
 
 
 v0.2.0 (Released 2012-05-12)
