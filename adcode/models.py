@@ -2,7 +2,7 @@
 
 from django.core.cache import cache
 from django.db import models
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
 
 from .conf import PLACEHOLDER_TEMPLATE
@@ -84,3 +84,30 @@ def retrieve_section_placements(section):
         placements = list(Placement.objects.filter(sections=section).select_related('size'))
         cache.set(cache_key, placements, CACHE_TIMEOUT)
     return placements
+
+
+def _update_placement_cache(placement, replace=True):
+    "Remove placement from related section caches. Replace if requested."
+    for section in placement.sections.all():
+        cache_key = PLACEMENTS_KEY_FORMAT.format(section.pk)
+        placements = cache.get(cache_key, [])
+        try:
+            placements.remove(placement)
+        except ValueError:
+            # Placement not in the list
+            pass
+        if replace:
+            placements.append(placement)
+        cache.set(cache_key, placements, CACHE_TIMEOUT)
+
+
+@receiver(post_save, sender=Placement)
+def save_placement_handler(sender, instance,  **kwargs):
+    "Add or update the placement in the caches."
+    _update_placement_cache(placement=instance, replace=True)
+
+
+@receiver(pre_delete, sender=Placement)
+def delete_placement_handler(sender, instance,  **kwargs):
+    "Remove the placement from the section caches."
+    _update_placement_cache(placement=instance, replace=False)
