@@ -26,8 +26,10 @@ def retrieve_all_sections():
     "Get all sections from the cache or query the database."
     sections = cache.get(SECTION_CACHE_KEY, None)
     if sections is None:
-        sections = list(Section.objects.order_by('-priority'))
-        cache.set(SECTION_CACHE_KEY, sections, CACHE_TIMEOUT)
+        sections = Section.objects.order_by('-priority')
+        if CACHE_TIMEOUT:
+            sections = list(sections)
+            cache.set(SECTION_CACHE_KEY, sections, CACHE_TIMEOUT)
     return sections
 
 
@@ -36,7 +38,8 @@ def retrieve_all_sections():
 def cycle_sections_cache(sender, **kwargs):
     "Delete and restore section info in the cache."
     cache.delete(SECTION_CACHE_KEY)
-    retrieve_all_sections()
+    if CACHE_TIMEOUT:
+        retrieve_all_sections()
 
 
 class Size(models.Model):
@@ -81,24 +84,27 @@ def retrieve_section_placements(section):
     cache_key = PLACEMENTS_KEY_FORMAT.format(section.pk)
     placements = cache.get(cache_key, None)
     if placements is None:
-        placements = list(Placement.objects.filter(sections=section).select_related('size'))
-        cache.set(cache_key, placements, CACHE_TIMEOUT)
+        placements = Placement.objects.filter(sections=section).select_related('size')
+        if CACHE_TIMEOUT:
+            placements = list(placements)
+            cache.set(cache_key, placements, CACHE_TIMEOUT)
     return placements
 
 
 def _update_placement_cache(placement, replace=True):
     "Remove placement from related section caches. Replace if requested."
-    for section in placement.sections.all():
-        cache_key = PLACEMENTS_KEY_FORMAT.format(section.pk)
-        placements = cache.get(cache_key, [])
-        try:
-            placements.remove(placement)
-        except ValueError:
-            # Placement not in the list
-            pass
-        if replace:
-            placements.append(placement)
-        cache.set(cache_key, placements, CACHE_TIMEOUT)
+    if CACHE_TIMEOUT:
+        for section in placement.sections.all():
+            cache_key = PLACEMENTS_KEY_FORMAT.format(section.pk)
+            placements = cache.get(cache_key, [])
+            try:
+                placements.remove(placement)
+            except ValueError:
+                # Placement not in the list
+                pass
+            if replace:
+                placements.append(placement)
+            cache.set(cache_key, placements, CACHE_TIMEOUT)
 
 
 @receiver(post_save, sender=Placement)
