@@ -13,6 +13,7 @@ Contents
 
     quick-start
     customize
+    settings
     releases
 
 

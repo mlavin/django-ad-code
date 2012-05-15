@@ -17,4 +17,6 @@ SECTION_CACHE_KEY = 'alladcodesections'
 
 PLACEMENTS_KEY_FORMAT = 'adcodeplacements{0}'
 
-CACHE_TIMEOUT = 60 * 60 * 12 # 12 Hours
+DEFAULT_TIMEOUT = 60 * 60 * 12  # 12 Hours
+
+CACHE_TIMEOUT = getattr(settings, 'ADCODE_CACHE_TIMEOUT', DEFAULT_TIMEOUT)
