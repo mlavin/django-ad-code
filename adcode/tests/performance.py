@@ -34,7 +34,16 @@ class QueryCountsTestCase(TemplateTagTestCase):
         "Subsequent calls through the context process should be cached."
         current_placements(self.request)
         with self.assertNumQueries(0):
-            current_placements(self.request)
+            request = self.factory.get('/foo/')
+            current_placements(request)
+
+    def test_context_processor_new_section(self):
+        "Subsequent calls with a new section only require querying the placements."
+        other_section = self.create_section(pattern='^/bar/')
+        current_placements(self.request)
+        with self.assertNumQueries(1):
+            request = self.factory.get('/bar/')
+            current_placements(request)
         
     def test_render_header_no_cache(self):
         "Number of queries to render header with no cache."
