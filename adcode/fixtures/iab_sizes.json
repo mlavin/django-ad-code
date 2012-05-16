@@ -1,0 +1,209 @@
+[
+    {
+        "pk": 1, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 970, 
+            "name": "IAB Billoard", 
+            "height": 250
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB Filmstrip", 
+            "height": 600
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB Portrait", 
+            "height": 1050
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 970, 
+            "name": "IAB Pushdown", 
+            "height": 90
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB Sidekick", 
+            "height": 250
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB Sidekick", 
+            "height": 600
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 970, 
+            "name": "IAB Sidekick", 
+            "height": 250
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 970, 
+            "name": "IAB Slider", 
+            "height": 90
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 970, 
+            "name": "IAB Super Leaderboard", 
+            "height": 90
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB Half Page", 
+            "height": 600
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 120, 
+            "name": "IAB Button 2", 
+            "height": 60
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 88, 
+            "name": "IAB Micro Bar", 
+            "height": 31
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 250, 
+            "name": "IAB Square Pop-Up", 
+            "height": 250
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 240, 
+            "name": "IAB Vertical Rectangle", 
+            "height": 400
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 336, 
+            "name": "IAB Large Rectangle", 
+            "height": 280
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB 3:1 Rectangle", 
+            "height": 100
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 720, 
+            "name": "IAB Pop-Under", 
+            "height": 300
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 468, 
+            "name": "IAB Full Banner", 
+            "height": 60
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 234, 
+            "name": "IAB Half Banner", 
+            "height": 60
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 120, 
+            "name": "IAB Button 1", 
+            "height": 90
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 120, 
+            "name": "IAB Vertical Banner", 
+            "height": 240
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 125, 
+            "name": "IAB Square Button", 
+            "height": 125
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 120, 
+            "name": "IAB Skyscraper", 
+            "height": 600
+        }
+    }
+]
