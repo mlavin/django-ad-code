@@ -3,7 +3,7 @@ Release History
 
 Release and change history for django-ad-code
 
-v0.3.0 (TBD)
+v0.3.0 (Released 2012-05-16)
 ------------------------------------
 
 This release made a few changes to the model fields. To upgrade you should run::
