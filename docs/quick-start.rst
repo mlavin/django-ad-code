@@ -55,6 +55,12 @@ If you are also using South then you should run ``migrate`` instead::
 
     python manage.py migrate adcode
 
+There is an optional fixture with IAB ad sizes based on the
+`2012 guidelines <http://www.iab.net/guidelines/508676/508767/displayguidelines>`_. To
+load this fixture run::
+
+    python manage.py loaddata iab_sizes.json
+
 
 Using Ad Data in the Template
 ------------------------------------
