@@ -20,7 +20,7 @@ _________________
 - Added priority field for Sections to resolve overlapping regex patterns.
 - Additional defaults for model admin clases.
 - Caching and performance improvements.
-- Fixture of standard IAB ad sizes.
+- Fixture for standard IAB ad sizes.
 
 
 v0.2.0 (Released 2012-05-12)
