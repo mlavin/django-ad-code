@@ -150,6 +150,6 @@ def render_placement(parser, token):
     try:
         tag_name, slug = token.split_contents()
     except ValueError:
-        msg = u"{0} tag requires exactly one argument.".format(token.contents.split())
+        msg = u"{0} tag requires exactly one argument.".format(*token.contents.split())
         raise template.TemplateSyntaxError(msg)
     return PlacementTemplateNode(slug=slug)
