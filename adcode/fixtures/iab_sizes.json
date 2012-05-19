@@ -205,5 +205,41 @@
             "name": "IAB Skyscraper", 
             "height": 600
         }
+    }, 
+    {
+        "pk": 24, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 300, 
+            "name": "IAB Medium Rectangle", 
+            "height": 250
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 180, 
+            "name": "IAB Rectangle", 
+            "height": 150
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 160, 
+            "name": "IAB Wide Skyscraper", 
+            "height": 600
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "adcode.size", 
+        "fields": {
+            "width": 728, 
+            "name": "IAB Leaderboard", 
+            "height": 90
+        }
     }
 ]

@@ -61,4 +61,4 @@ class FixturesTestCase(TestCase):
         out = StringIO.StringIO()
         err = StringIO.StringIO()
         call_command('loaddata', 'iab_sizes.json', stdout=out, stderr=err)
-        self.assertEqual(Size.objects.all().count(), 23)
+        self.assertEqual(Size.objects.all().count(), 27)
