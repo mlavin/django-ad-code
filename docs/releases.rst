@@ -3,6 +3,16 @@ Release History
 
 Release and change history for django-ad-code
 
+v0.3.1 (Released 2012-05-19)
+------------------------------------
+
+Bug Fixes
+_________________
+
+- Added missing IAB sizes from the Universal Ad Package. (Issue #10)
+- Fixed minor formatting issue with template syntax error message.
+
+
 v0.3.0 (Released 2012-05-16)
 ------------------------------------
 
