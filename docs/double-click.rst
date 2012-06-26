@@ -39,7 +39,7 @@ example of what this might look like is given below.
             googletag.cmd.push(function() {
                 {% for placement in placements %}
                 googletag.defineSlot(
-                    '{{ placement.remote_id }}', [{{ placement.size.width }}, {{ placement.size.height }}], 'div-gpt-ad-{{ placement.id }}'
+                    '{{ placement.remote_id }}', [{{ placement.width }}, {{ placement.height }}], 'div-gpt-ad-{{ placement.id }}'
                 ).addService(googletag.pubads());
                 {% endfor %}
                 googletag.pubads().enableSingleRequest();
