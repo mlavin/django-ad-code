@@ -2,7 +2,10 @@
 
 import random
 import string
+import StringIO
 
+from django.core.cache import cache
+from django.core.management import call_command
 from django.test import TestCase
 
 from adcode.models import Section, Size, Placement
@@ -10,6 +13,9 @@ from adcode.models import Section, Size, Placement
 
 class AdCodeDataTestCase(TestCase):
     "Base test case for creating adcode models."
+
+    def tearDown(self):
+        cache.clear()
 
     def get_random_string(self, length=10):
         return u''.join(random.choice(string.ascii_letters) for x in xrange(length))
@@ -45,3 +51,14 @@ class AdCodeDataTestCase(TestCase):
         if 'size' not in defaults:
             defaults['size'] = self.create_size()
         return Placement.objects.create(**defaults)
+
+
+class FixturesTestCase(TestCase):
+    "Ensure that provided fixtures load."
+
+    def test_iab_sizes(self):
+        "Load IAB size fixture."
+        out = StringIO.StringIO()
+        err = StringIO.StringIO()
+        call_command('loaddata', 'iab_sizes.json', stdout=out, stderr=err)
+        self.assertEqual(Size.objects.all().count(), 27)

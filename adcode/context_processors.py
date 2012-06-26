@@ -3,20 +3,19 @@
 import re
 
 from .conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
-from .models import Section, Placement
+from .models import retrieve_all_sections, retrieve_section_placements, Placement
 
 
 def current_placements(request):
     "Match current section to request path and get related placements."
-    # TODO: Add caching
     current = None
     placements = Placement.objects.none()
-    sections = Section.objects.all()
+    sections = retrieve_all_sections()
     for section in sections:
         pattern = re.compile(section.pattern)
         if pattern.search(request.path):
             current = section
             break
     if current:
-        placements = Placement.objects.filter(sections=current).select_related('size')
+        placements = retrieve_section_placements(current)
     return {SECTION_CONTEXT_KEY: current, PLACEMENTS_CONTEXT_KEY: placements}
