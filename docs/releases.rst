@@ -10,6 +10,7 @@ Features
 _________________
 
 - Documentation for integrating DoubleClick tags
+- Travis CI integration
 
 
 v0.3.1 (Released 2012-05-19)

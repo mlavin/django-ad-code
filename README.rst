@@ -7,6 +7,11 @@ from third-party ad server or ad network such Adsense, DoubleClick or OpenX.
 django-ad-code is *not* an ad server or full ad management system. It is simply a tool 
 to help you manage the ad tags needed to use an ad network.
 
+.. image::
+    https://secure.travis-ci.org/mlavin/django-ad-code.png?branch=master
+    :alt: Build Status
+        :target: https://secure.travis-ci.org/mlavin/django-ad-code
+
 
 Installation
 --------------------------------------
@@ -23,6 +28,12 @@ Documentation
 
 Documentation on using django-ad-code is available on 
 `Read The Docs <http://readthedocs.org/docs/django-ad-code/>`_.
+
+License
+--------------------------------------
+
+django-ad-code is released under the BSD License. See the 
+`LICENSE <https://github.com/mlavin/django-ad-code/blob/master/LICENSE>`_ file for more details.
 
 
 Contributing
