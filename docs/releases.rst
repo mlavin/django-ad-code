@@ -3,6 +3,15 @@ Release History
 
 Release and change history for django-ad-code
 
+v0.4.0 (TBD)
+------------------------------------
+
+Features
+_________________
+
+- Documentation for integrating DoubleClick tags
+
+
 v0.3.1 (Released 2012-05-19)
 ------------------------------------
 
