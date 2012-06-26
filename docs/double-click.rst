@@ -10,6 +10,11 @@ code.
 This not meant to be a comprehensive guide on using DoubleClick only a guide on
 integrating your DoubleClick inventory with django-ad-code.
 
+.. note::
+
+    This documentation is primarily for example purposes and should not be
+    taken as an endorsement of DoubleClick.
+
 
 Header Template
 -------------------------------------------
