@@ -14,6 +14,7 @@ Contents
     quick-start
     customize
     double-click
+    openx
     settings
     releases
 
