@@ -10,6 +10,7 @@ Features
 _________________
 
 - Documentation for integrating DoubleClick tags
+- Documentation for integrating OpenX tags
 - Travis CI integration
 
 
