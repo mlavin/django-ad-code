@@ -11,7 +11,7 @@ try:
     from django.utils.six import StringIO
 except ImportError:
     # Django < 1.5. No Python 3 support
-    import StringIO
+    from StringIO import StringIO
 
 from adcode.models import Section, Size, Placement
 
