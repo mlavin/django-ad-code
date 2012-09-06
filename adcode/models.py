@@ -5,6 +5,11 @@ from django.core.cache import cache
 from django.db import models
 from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
+try:
+    from django.utils.six import PY3
+except ImportError:
+    # Django < 1.5. No Python 3 support
+    PY3 = False
 
 from .conf import PLACEHOLDER_TEMPLATE
 from .conf import CACHE_TIMEOUT, SECTION_CACHE_KEY, PLACEMENTS_KEY_FORMAT
@@ -19,8 +24,12 @@ class Section(models.Model):
     pattern = models.CharField(max_length=200, validators=[validate_pattern, ])
     priority = models.PositiveSmallIntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
+    if not PY3:
+        __unicode__ = __str__
+        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
 
 def retrieve_all_sections():
@@ -50,8 +59,12 @@ class Size(models.Model):
     width = models.PositiveSmallIntegerField()
     height = models.PositiveSmallIntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return '{0} {1}x{2}'.format(self.name, self.width, self.height)
+
+    if not PY3:
+        __unicode__ = __str__
+        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
 
 class Placement(models.Model):
@@ -63,8 +76,12 @@ class Placement(models.Model):
     size = models.ForeignKey(Size, related_name='placements')
     sections = models.ManyToManyField(Section, blank=True, related_name='placements')
 
-    def __unicode__(self):
+    def __str__(self):
         return '{0} ({1})'.format(self.name, self.size)
+
+    if not PY3:
+        __unicode__ = __str__
+        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
     @property
     def placeholder(self):
