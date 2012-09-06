@@ -3,11 +3,15 @@ from __future__ import unicode_literals
 
 import random
 import string
-import StringIO
 
 from django.core.cache import cache
 from django.core.management import call_command
 from django.test import TestCase
+try:
+    from django.utils.six import StringIO
+except ImportError:
+    # Django < 1.5. No Python 3 support
+    import StringIO
 
 from adcode.models import Section, Size, Placement
 
@@ -59,7 +63,7 @@ class FixturesTestCase(TestCase):
 
     def test_iab_sizes(self):
         "Load IAB size fixture."
-        out = StringIO.StringIO()
-        err = StringIO.StringIO()
+        out = StringIO()
+        err = StringIO()
         call_command('loaddata', 'iab_sizes.json', stdout=out, stderr=err)
         self.assertEqual(Size.objects.all().count(), 27)
