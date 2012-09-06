@@ -12,6 +12,7 @@ _________________
 - Documentation for integrating DoubleClick tags
 - Documentation for integrating OpenX tags
 - Travis CI integration
+- Experimental Python 3 (3.2+) support
 
 
 v0.3.1 (Released 2012-05-19)
