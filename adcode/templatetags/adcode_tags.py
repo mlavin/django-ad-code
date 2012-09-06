@@ -107,7 +107,7 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
                     placement = None
                 else:
                     try:
-                        placement = filter(lambda p: p.slug == slug, placements)[0]
+                        placement = [p for p in placements if p.slug == slug][0]
                     except IndexError:
                         placement = None
                 context.render_context[self] = placement
