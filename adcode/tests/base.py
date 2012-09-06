@@ -1,4 +1,5 @@
 "Test helper functions and base test cases."
+from __future__ import unicode_literals
 
 import random
 import string
@@ -18,7 +19,7 @@ class AdCodeDataTestCase(TestCase):
         cache.clear()
 
     def get_random_string(self, length=10):
-        return u''.join(random.choice(string.ascii_letters) for x in xrange(length))
+        return ''.join(random.choice(string.ascii_letters) for x in range(length))
 
     def create_section(self, **kwargs):
         "Factory method for creating Sections."

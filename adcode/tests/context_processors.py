@@ -1,4 +1,5 @@
 "Tests for context processors."
+from __future__ import unicode_literals
 
 from django.test.client import RequestFactory
 

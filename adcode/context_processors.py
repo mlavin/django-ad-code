@@ -1,4 +1,5 @@
 "Context processors for adding current sections and placements in the context."
+from __future__ import unicode_literals
 
 import re
 

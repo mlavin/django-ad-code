@@ -1,4 +1,5 @@
 "Template tags to help rendering necessary JS and other markup for displaying ads."
+from __future__ import unicode_literals
 
 from django import template
 from django.conf import settings
@@ -69,9 +70,9 @@ class SectionHeaderTemplateNode(BaseSectionTemplateNode):
         if section is not None:
             templates = [
                 # Section specific header
-                u'adcode/{0}/header.html'.format(section.slug),
+                'adcode/{0}/header.html'.format(section.slug),
                 # Default template
-                u'adcode/header.html'
+                'adcode/header.html'
             ]
         return templates
 
@@ -128,11 +129,11 @@ class PlacementTemplateNode(BaseSectionTemplateNode):
         if section is not None and placement is not None:
             templates = [
                 # Placement specific template
-                u'adcode/{0}/{1}-placement.html'.format(section.slug, placement.slug),
+                'adcode/{0}/{1}-placement.html'.format(section.slug, placement.slug),
                 # Section specific placement
-                u'adcode/{0}/placement.html'.format(section.slug),
+                'adcode/{0}/placement.html'.format(section.slug),
                 # Default template
-                u'adcode/placement.html'
+                'adcode/placement.html'
             ]
         return templates
 
@@ -150,6 +151,6 @@ def render_placement(parser, token):
     try:
         tag_name, slug = token.split_contents()
     except ValueError:
-        msg = u"{0} tag requires exactly one argument.".format(*token.contents.split())
+        msg = "{0} tag requires exactly one argument.".format(*token.contents.split())
         raise template.TemplateSyntaxError(msg)
     return PlacementTemplateNode(slug=slug)

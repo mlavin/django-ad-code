@@ -1,4 +1,5 @@
 "Tests for template tags."
+from __future__ import unicode_literals
 
 import os
 
@@ -54,7 +55,7 @@ class RenderHeaderTestCase(TemplateTagTestCase):
         "Handle the case where there is no section in the context." 
         self.section.delete()
         result = self.render_template_tag()
-        self.assertEqual(result, u'')
+        self.assertEqual(result, '')
 
     def test_section_specific_template(self):
         "Tag should use section specific template if available."
@@ -94,13 +95,13 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         "Handle the case where there is no section in the context." 
         self.section.delete()
         result = self.render_template_tag()
-        self.assertEqual(result, u'')
+        self.assertEqual(result, '')
 
     def test_no_matched_placement(self):
         "Handle the case where there is placement matching the slug." 
         self.placement.delete()
         result = self.render_template_tag()
-        self.assertEqual(result, u'')
+        self.assertEqual(result, '')
 
     def test_section_specific_template(self):
         "Tag should use section specific template if available."

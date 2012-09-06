@@ -1,4 +1,5 @@
 "Additional model field validators."
+from __future__ import unicode_literals
 
 import re
 
@@ -10,4 +11,4 @@ def validate_pattern(value):
     try:
         re.compile(value)
     except:
-        raise ValidationError(u'{0} is not a valid regular expression.'.format(value))
+        raise ValidationError('{0} is not a valid regular expression.'.format(value))

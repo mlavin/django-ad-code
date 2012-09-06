@@ -1,4 +1,5 @@
 "Models for managing site sections and ad placements."
+from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.db import models
@@ -50,7 +51,7 @@ class Size(models.Model):
     height = models.PositiveSmallIntegerField()
 
     def __unicode__(self):
-        return u'{0} {1}x{2}'.format(self.name, self.width, self.height)
+        return '{0} {1}x{2}'.format(self.name, self.width, self.height)
 
 
 class Placement(models.Model):
@@ -58,12 +59,12 @@ class Placement(models.Model):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
-    remote_id = models.CharField(max_length=200, blank=True, default=u'')
+    remote_id = models.CharField(max_length=200, blank=True, default='')
     size = models.ForeignKey(Size, related_name='placements')
     sections = models.ManyToManyField(Section, blank=True, related_name='placements')
 
     def __unicode__(self):
-        return u'{0} ({1})'.format(self.name, self.size)
+        return '{0} ({1})'.format(self.name, self.size)
 
     @property
     def placeholder(self):

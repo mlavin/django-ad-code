@@ -1,4 +1,5 @@
 "Performance related tests."
+from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.template import Template
@@ -22,7 +23,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
         self.placement = self.create_placement()
         self.placement.sections.add(self.section)
 
-    @skipIf(not CACHE_TIMEOUT, u"Caching is disabled.")
+    @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_context_processor_no_cache(self):
         "Number of queries for the context processor with no cache."
         cache.clear()
@@ -31,7 +32,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
             # One query to get all placements the current section
             current_placements(self.request)
 
-    @skipIf(not CACHE_TIMEOUT, u"Caching is disabled.")
+    @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_context_processor_cached(self):
         "Subsequent calls through the context process should be cached."
         current_placements(self.request)
@@ -47,7 +48,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
             request = self.factory.get('/bar/')
             current_placements(request)
     
-    @skipIf(not CACHE_TIMEOUT, u"Caching is disabled.")
+    @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_render_header_no_cache(self):
         "Number of queries to render header with no cache."
         template = Template("{% load adcode_tags %}{% render_section_header %}")
@@ -57,7 +58,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
             # No additional queries to header which does not access placements
             template.render(context)
 
-    @skipIf(not CACHE_TIMEOUT, u"Caching is disabled.")
+    @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_render_placement_no_cache(self):
         "Number of queries to render a placement with no cache."
         template = Template(
@@ -69,7 +70,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
             # All queries are executed and cached in the context processor
             template.render(context)
 
-    @skipIf(not CACHE_TIMEOUT, u"Caching is disabled.")
+    @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_render_placement_cached(self):
         "Subsequent placement renders should be cached."
         template = Template(
@@ -80,7 +81,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
         with self.assertNumQueries(0):
             template.render(context)
 
-    @skipIf(not CACHE_TIMEOUT, u"Caching is disabled.")
+    @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_multiple_placements_same_section(self):
         "Mutliple placements in the same section should be cached."
         other_placement = self.create_placement()
