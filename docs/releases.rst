@@ -3,8 +3,12 @@ Release History
 
 Release and change history for django-ad-code
 
-v0.4.0 (TBD)
+v0.4.0 (Released 2012-12-19)
 ------------------------------------
+
+A fairly minor release and users should feel safe to upgrade. Beyond some helpful
+new documentation there is experimental support for Python 3.2+. This requires
+using Django 1.5 or higher.
 
 Features
 _________________
