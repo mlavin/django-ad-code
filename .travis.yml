@@ -9,3 +9,6 @@ install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install . --use-mirrors
 script: python setup.py test
+branches:
+  only:
+    - master
