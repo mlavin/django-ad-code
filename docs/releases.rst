@@ -3,6 +3,14 @@ Release History
 
 Release and change history for django-ad-code
 
+
+v0.4.1 (Released 2013-06-08)
+------------------------------------
+
+- Reorganized test suite to ensure compatibility with test runner in Django 1.6
+- Refactored Travis CI integration
+
+
 v0.4.0 (Released 2012-12-19)
 ------------------------------------
 
