@@ -1,7 +1,7 @@
 """
-django-ad-code is a reusable application for managing and rendering ad tags 
+django-ad-code is a reusable application for managing and rendering ad tags
 from ad networks or exchanges such Adsense, DoubleClick or OpenX.
 """
 from __future__ import unicode_literals
 
-__version__ = '0.4.0'
+__version__ = '0.4.1'
