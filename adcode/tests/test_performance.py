@@ -7,9 +7,9 @@ from django.template.context import RequestContext
 from django.test.client import RequestFactory
 from django.utils.unittest import skipIf
 
-from .templatetags import TemplateTagTestCase
-from adcode.conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY, CACHE_TIMEOUT
-from adcode.context_processors import current_placements
+from .test_templatetags import TemplateTagTestCase
+from ..conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY, CACHE_TIMEOUT
+from ..context_processors import current_placements
 
 
 class QueryCountsTestCase(TemplateTagTestCase):
@@ -47,7 +47,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
         with self.assertNumQueries(1):
             request = self.factory.get('/bar/')
             current_placements(request)
-    
+
     @skipIf(not CACHE_TIMEOUT, "Caching is disabled.")
     def test_render_header_no_cache(self):
         "Number of queries to render header with no cache."

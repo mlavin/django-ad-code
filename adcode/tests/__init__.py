@@ -1,5 +1,5 @@
-from .base import FixturesTestCase
-from .context_processors import CurrentPlacementsTestCase
-from .performance import QueryCountsTestCase
-from .templatetags import RenderHeaderTestCase, RenderPlacementTestCase
-from .validators import PatternValidatorTestCase
+from .test_fixtures import FixturesTestCase
+from .test_context_processors import CurrentPlacementsTestCase
+from .test_performance import QueryCountsTestCase
+from .test_templatetags import RenderHeaderTestCase, RenderPlacementTestCase
+from .test_validators import PatternValidatorTestCase

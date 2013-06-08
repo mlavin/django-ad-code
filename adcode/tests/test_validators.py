@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.utils import unittest
 
-from adcode.validators import validate_pattern
+from ..validators import validate_pattern
 
 
 class PatternValidatorTestCase(unittest.TestCase):

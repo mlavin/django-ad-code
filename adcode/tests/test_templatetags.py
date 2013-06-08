@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.test.client import RequestFactory
 
 from .base import AdCodeDataTestCase
-from adcode.conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
+from ..conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
 
 
 class TemplateTagTestCase(AdCodeDataTestCase):
@@ -52,7 +52,7 @@ class RenderHeaderTestCase(TemplateTagTestCase):
         self.assertEqual(result, expected)
 
     def test_no_current_section(self):
-        "Handle the case where there is no section in the context." 
+        "Handle the case where there is no section in the context."
         self.section.delete()
         result = self.render_template_tag()
         self.assertEqual(result, '')
@@ -92,13 +92,13 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         self.assertEqual(result, expected)
 
     def test_no_current_section(self):
-        "Handle the case where there is no section in the context." 
+        "Handle the case where there is no section in the context."
         self.section.delete()
         result = self.render_template_tag()
         self.assertEqual(result, '')
 
     def test_no_matched_placement(self):
-        "Handle the case where there is placement matching the slug." 
+        "Handle the case where there is placement matching the slug."
         self.placement.delete()
         result = self.render_template_tag()
         self.assertEqual(result, '')

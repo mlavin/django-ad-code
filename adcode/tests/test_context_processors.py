@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 from django.test.client import RequestFactory
 
 from .base import AdCodeDataTestCase
-from adcode.conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
-from adcode.context_processors import current_placements
+from ..conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
+from ..context_processors import current_placements
 
 
 class CurrentPlacementsTestCase(AdCodeDataTestCase):
