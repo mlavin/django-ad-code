@@ -4,6 +4,12 @@ Release History
 Release and change history for django-ad-code
 
 
+v0.5.0 (Released TBD)
+------------------------------------
+
+- Dropped Django 1.3 support. Minimum version is now Django 1.4.2
+
+
 v0.4.1 (Released 2013-06-08)
 ------------------------------------
 
