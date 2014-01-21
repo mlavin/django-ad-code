@@ -5,17 +5,14 @@ from django.core.cache import cache
 from django.db import models
 from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
-try:
-    from django.utils.six import PY3
-except ImportError:
-    # Django < 1.5. No Python 3 support
-    PY3 = False
+from django.utils.encoding import python_2_unicode_compatible
 
 from .conf import PLACEHOLDER_TEMPLATE
 from .conf import CACHE_TIMEOUT, SECTION_CACHE_KEY, PLACEMENTS_KEY_FORMAT
 from .validators import validate_pattern
 
 
+@python_2_unicode_compatible
 class Section(models.Model):
     "A grouping of site urls."
 
@@ -26,10 +23,6 @@ class Section(models.Model):
 
     def __str__(self):
         return self.name
-
-    if not PY3:
-        __unicode__ = __str__
-        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
 
 def retrieve_all_sections():
@@ -52,6 +45,7 @@ def cycle_sections_cache(sender, **kwargs):
         retrieve_all_sections()
 
 
+@python_2_unicode_compatible
 class Size(models.Model):
     "Common Ad size."
 
@@ -62,11 +56,8 @@ class Size(models.Model):
     def __str__(self):
         return '{0} {1}x{2}'.format(self.name, self.width, self.height)
 
-    if not PY3:
-        __unicode__ = __str__
-        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
-
+@python_2_unicode_compatible
 class Placement(models.Model):
     "Ad to be rendered in given sections."
 
@@ -78,10 +69,6 @@ class Placement(models.Model):
 
     def __str__(self):
         return '{0} ({1})'.format(self.name, self.size)
-
-    if not PY3:
-        __unicode__ = __str__
-        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
     @property
     def placeholder(self):
