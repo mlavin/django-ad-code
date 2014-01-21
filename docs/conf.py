@@ -10,8 +10,9 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
-
-import sys, os
+import datetime
+import os
+import sys
 import adcode
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -41,8 +42,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-ad-code'
-copyright = u'2012-2013, Mark Lavin'
+project = 'django-ad-code'
+copyright = '2012-%s, Mark Lavin' % datetime.date.today().year
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
