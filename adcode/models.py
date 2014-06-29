@@ -54,7 +54,7 @@ class Size(models.Model):
     height = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return '{0} {1}x{2}'.format(self.name, self.width, self.height)
+        return '{name} {width}x{height}'.format(name=self.name, width=self.width, height=self.height)
 
 
 @python_2_unicode_compatible
@@ -68,7 +68,7 @@ class Placement(models.Model):
     sections = models.ManyToManyField(Section, blank=True, related_name='placements')
 
     def __str__(self):
-        return '{0} ({1})'.format(self.name, self.size)
+        return '{} ({})'.format(self.name, self.size)
 
     @property
     def placeholder(self):

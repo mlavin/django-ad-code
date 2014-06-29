@@ -11,4 +11,4 @@ def validate_pattern(value):
     try:
         re.compile(value)
     except:
-        raise ValidationError('{0} is not a valid regular expression.'.format(value))
+        raise ValidationError('{} is not a valid regular expression.'.format(value))
