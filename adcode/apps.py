@@ -6,3 +6,6 @@ except ImportError:
 
 class AdCodeConfig(AppConfig):
     name = 'adcode'
+
+    def ready(self):
+        from . import recievers

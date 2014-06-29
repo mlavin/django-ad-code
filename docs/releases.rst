@@ -25,6 +25,7 @@ should automatically fake the initial migration using the new-style migrations.
 
 - Added support for Django 1.7 migrations
 - Added customizable AppConfig for Django 1.7
+- Refactored signal handling for caching to use the AppConfig if available
 - Dropped Django 1.3 support. Minimum version is now Django 1.4.2
 - Dropped support for Python 2.6
 

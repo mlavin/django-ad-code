@@ -3,12 +3,10 @@ from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.db import models
-from django.db.models.signals import post_save, post_delete, pre_delete
-from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 
-from .conf import PLACEHOLDER_TEMPLATE
 from .conf import CACHE_TIMEOUT, SECTION_CACHE_KEY, PLACEMENTS_KEY_FORMAT
+from .conf import PLACEHOLDER_TEMPLATE
 from .validators import validate_pattern
 
 
@@ -34,15 +32,6 @@ def retrieve_all_sections():
             sections = list(sections)
             cache.set(SECTION_CACHE_KEY, sections, CACHE_TIMEOUT)
     return sections
-
-
-@receiver(post_save, sender=Section)
-@receiver(post_delete, sender=Section)
-def cycle_sections_cache(sender, **kwargs):
-    "Delete and restore section info in the cache."
-    cache.delete(SECTION_CACHE_KEY)
-    if CACHE_TIMEOUT:
-        retrieve_all_sections()
 
 
 @python_2_unicode_compatible
@@ -95,30 +84,9 @@ def retrieve_section_placements(section):
             cache.set(cache_key, placements, CACHE_TIMEOUT)
     return placements
 
-
-def _update_placement_cache(placement, replace=True):
-    "Remove placement from related section caches. Replace if requested."
-    if CACHE_TIMEOUT:
-        for section in placement.sections.all():
-            cache_key = PLACEMENTS_KEY_FORMAT.format(section.pk)
-            placements = cache.get(cache_key, [])
-            try:
-                placements.remove(placement)
-            except ValueError:
-                # Placement not in the list
-                pass
-            if replace:
-                placements.append(placement)
-            cache.set(cache_key, placements, CACHE_TIMEOUT)
-
-
-@receiver(post_save, sender=Placement)
-def save_placement_handler(sender, instance,  **kwargs):
-    "Add or update the placement in the caches."
-    _update_placement_cache(placement=instance, replace=True)
-
-
-@receiver(pre_delete, sender=Placement)
-def delete_placement_handler(sender, instance,  **kwargs):
-    "Remove the placement from the section caches."
-    _update_placement_cache(placement=instance, replace=False)
+try:
+    from django import apps
+except ImportError:
+    # Django < 1.7
+    # Manually import the signal recivers.
+    from . import recievers
