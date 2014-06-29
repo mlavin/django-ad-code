@@ -16,9 +16,8 @@ to help you manage the ad tags needed to use an ad network.
 Installation
 --------------------------------------
 
-django-ad-code requires Django >= 1.3 and Python >= 2.6. Starting with version
-0.4 there is experimental support for Python >= 3.2. Using Python 3 requires
-using the lastest Django in-development version 1.5dev.
+django-ad-code requires Django >= 1.4.2 and Python >= 2.6. Starting with version
+0.4 there is support for Python >= 3.2. Using Python 3 requires using Django >= 1.5.
 
 To install from PyPi::
     

@@ -55,11 +55,6 @@ If you are also using South then you should run ``migrate`` instead::
 
     python manage.py migrate adcode
 
-.. note::
-
-    The latest release of South does not support Python 3. If you want to try
-    django-ad-code with Python 3 you will have go without South for the time being.
-
 There is an optional fixture with IAB ad sizes based on the
 `2012 guidelines <http://www.iab.net/guidelines/508676/508767/displayguidelines>`_. To
 load this fixture run::
