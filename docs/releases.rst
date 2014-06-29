@@ -24,6 +24,7 @@ DB tables are up to date from v0.4.X then upgrading to 1.7 and running::
 should automatically fake the initial migration using the new-style migrations.
 
 - Added support for Django 1.7 migrations.
+- Added customizable AppConfig for Django 1.7.
 - Dropped Django 1.3 support. Minimum version is now Django 1.4.2
 - Dropped support for Python 2.6. This may continue to work but it is no longer tested.
 

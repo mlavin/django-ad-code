@@ -5,3 +5,5 @@ from ad networks or exchanges such Adsense, DoubleClick or OpenX.
 from __future__ import unicode_literals
 
 __version__ = '0.5.0dev'
+
+default_app_config = 'adcode.apps.AdCodeConfig'
