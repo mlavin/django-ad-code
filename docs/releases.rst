@@ -4,7 +4,7 @@ Release History
 Release and change history for django-ad-code
 
 
-v0.5.0 (Released TBD)
+v0.5.0 (Released 2014-09-07)
 ------------------------------------
 
 This release adds support for 1.7 and the new style migrations. If you are using Django < 1.7
