@@ -36,12 +36,6 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
-        migrations.AddField(
-            model_name='placement',
-            name='sections',
-            field=models.ManyToManyField(to='adcode.Section', blank=True),
-            preserve_default=True,
-        ),
         migrations.CreateModel(
             name='Size',
             fields=[
@@ -56,8 +50,14 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='placement',
+            name='sections',
+            field=models.ManyToManyField(related_name='placements', to='adcode.Section', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='placement',
             name='size',
-            field=models.ForeignKey(to='adcode.Size'),
+            field=models.ForeignKey(related_name='placements', to='adcode.Size'),
             preserve_default=True,
         ),
     ]
