@@ -1,3 +1,0 @@
-[run]
-source = adcode
-omit = */tests*,*/migrations/*,*/south_migrations/*
