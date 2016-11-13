@@ -83,10 +83,3 @@ def retrieve_section_placements(section):
             placements = list(placements)
             cache.set(cache_key, placements, CACHE_TIMEOUT)
     return placements
-
-try:
-    from django import apps
-except ImportError:
-    # Django < 1.7
-    # Manually import the signal recivers.
-    from . import recievers
