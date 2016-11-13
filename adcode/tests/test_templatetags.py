@@ -7,26 +7,29 @@ from django.conf import settings
 from django.template import Template, TemplateSyntaxError
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
+from django.test import override_settings
 from django.test.client import RequestFactory
 
 from .base import AdCodeDataTestCase
-from ..conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
 
 
+TEST_TEMPLATE_SETTINGS = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [
+        os.path.join(os.path.dirname(__file__), 'templates'),
+    ],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'adcode.context_processors.current_placements',
+        ],
+    },
+}]
+
+
+@override_settings(TEMPLATES=TEST_TEMPLATE_SETTINGS)
 class TemplateTagTestCase(AdCodeDataTestCase):
     "Base case to patch TEMPLATE_DIRS while running tests."
-
-    def setUp(self):
-        super(TemplateTagTestCase, self).setUp()
-        self.template_dirs = settings.TEMPLATE_DIRS
-        settings.TEMPLATE_DIRS = (
-            os.path.join(os.path.dirname(__file__), 'templates'),
-        )
-
-    def tearDown(self):
-        super(TemplateTagTestCase, self).tearDown()
-        settings.TEMPLATE_DIRS = self.template_dirs
-        del self.template_dirs
 
 
 class RenderHeaderTestCase(TemplateTagTestCase):
