@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import os
 
-from django.conf import settings
 from django.template import Template, TemplateSyntaxError
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
@@ -91,7 +90,7 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         "Render a placement by the slug."
         result = self.render_template_tag()
         context = {'section': self.section, 'placement': self.placement}
-        expected = render_to_string('adcode/placement.html',context)
+        expected = render_to_string('adcode/placement.html', context)
         self.assertEqual(result, expected)
 
     def test_no_current_section(self):
@@ -112,7 +111,7 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         self.section.save()
         result = self.render_template_tag()
         context = {'section': self.section, 'placement': self.placement}
-        expected = render_to_string('adcode/section-1/placement.html',context)
+        expected = render_to_string('adcode/section-1/placement.html', context)
         self.assertEqual(result, expected)
 
     def test_placement_specific_template(self):
@@ -130,13 +129,12 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         "Pass a variable for the slug name rather than a string."
         result = self.render_template_tag(slug='var', context={'var': 'footer'})
         context = {'section': self.section, 'placement': self.placement}
-        expected = render_to_string('adcode/placement.html',context)
+        expected = render_to_string('adcode/placement.html', context)
         self.assertEqual(result, expected)
 
     def test_unknown_variable(self):
         "Gracefully handle unknown variable given."
         result = self.render_template_tag(slug='var', context={})
-        context = {'section': self.section, 'placement': self.placement}
         self.assertEqual(result, '')
 
     def test_no_slug_given(self):
