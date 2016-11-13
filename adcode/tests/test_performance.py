@@ -8,7 +8,7 @@ from django.test.client import RequestFactory
 from django.utils.unittest import skipIf
 
 from .test_templatetags import TemplateTagTestCase
-from ..conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY, CACHE_TIMEOUT
+from ..conf import CACHE_TIMEOUT
 from ..context_processors import current_placements
 
 
@@ -42,7 +42,7 @@ class QueryCountsTestCase(TemplateTagTestCase):
 
     def test_context_processor_new_section(self):
         "Subsequent calls with a new section only require querying the placements."
-        other_section = self.create_section(pattern='^/bar/')
+        self.create_section(pattern='^/bar/')
         current_placements(self.request)
         with self.assertNumQueries(1):
             request = self.factory.get('/bar/')
