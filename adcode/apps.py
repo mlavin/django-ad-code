@@ -5,4 +5,4 @@ class AdCodeConfig(AppConfig):
     name = 'adcode'
 
     def ready(self):
-        from . import recievers  # noqa
+        from . import conf, recievers  # noqa

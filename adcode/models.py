@@ -1,12 +1,12 @@
 "Models for managing site sections and ad placements."
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.core.cache import cache
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from .conf import CACHE_TIMEOUT, SECTION_CACHE_KEY, PLACEMENTS_KEY_FORMAT
-from .conf import PLACEHOLDER_TEMPLATE
+from .conf import SECTION_CACHE_KEY, PLACEMENTS_KEY_FORMAT
 from .validators import validate_pattern
 
 
@@ -28,9 +28,9 @@ def retrieve_all_sections():
     sections = cache.get(SECTION_CACHE_KEY, None)
     if sections is None:
         sections = Section.objects.order_by('-priority')
-        if CACHE_TIMEOUT:
+        if settings.ADCODE_CACHE_TIMEOUT:
             sections = list(sections)
-            cache.set(SECTION_CACHE_KEY, sections, CACHE_TIMEOUT)
+            cache.set(SECTION_CACHE_KEY, sections, settings.ADCODE_CACHE_TIMEOUT)
     return sections
 
 
@@ -43,7 +43,8 @@ class Size(models.Model):
     height = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return '{name} {width}x{height}'.format(name=self.name, width=self.width, height=self.height)
+        return '{name} {width}x{height}'.format(
+            name=self.name, width=self.width, height=self.height)
 
 
 @python_2_unicode_compatible
@@ -62,7 +63,7 @@ class Placement(models.Model):
     @property
     def placeholder(self):
         size = {'width': self.width, 'height': self.height}
-        return PLACEHOLDER_TEMPLATE.format(**size)
+        return settings.ADCODE_PLACEHOLDER_TEMPLATE.format(**size)
 
     @property
     def width(self):
@@ -79,7 +80,7 @@ def retrieve_section_placements(section):
     placements = cache.get(cache_key, None)
     if placements is None:
         placements = Placement.objects.filter(sections=section).select_related('size')
-        if CACHE_TIMEOUT:
+        if settings.ADCODE_CACHE_TIMEOUT:
             placements = list(placements)
-            cache.set(cache_key, placements, CACHE_TIMEOUT)
+            cache.set(cache_key, placements, settings.ADCODE_CACHE_TIMEOUT)
     return placements
