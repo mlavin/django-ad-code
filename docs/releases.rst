@@ -3,11 +3,13 @@ Release History
 
 Release and change history for django-ad-code
 
-v1.0.0 (Released TBD
+
+v1.0.0 (Released 2018-04-21)
 ------------------------------------
 
 This release adds support for Django 1.8-2.0. Previous versions of Django are no longer
-supported.
+supported. This puts this project on a stable footing for the next few years
+of Django support and that is now reflected in the version.
 
 
 v0.5.0 (Released 2014-09-07)
