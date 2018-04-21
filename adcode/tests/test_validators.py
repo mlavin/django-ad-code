@@ -1,8 +1,9 @@
 "Test custom validation logic."
 from __future__ import unicode_literals
 
+import unittest
+
 from django.core.exceptions import ValidationError
-from django.utils import unittest
 
 from ..validators import validate_pattern
 
@@ -20,9 +21,9 @@ class PatternValidatorTestCase(unittest.TestCase):
     def test_invalid_patterns(self):
         "Validate known invalid patterns."
         invalid = [
-            '(', # Miss matched (
-            '*', # Nothing to repeat
-            '+', # Nothing to repeat
+            '(',  # Miss matched (
+            '*',  # Nothing to repeat
+            '+',  # Nothing to repeat
         ]
         for pattern in invalid:
             self.assertRaises(ValidationError, validate_pattern, pattern)

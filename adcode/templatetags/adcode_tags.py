@@ -38,7 +38,7 @@ class BaseSectionTemplateNode(template.Node):
             'MEDIA_URL': settings.MEDIA_URL,
             'STATIC_URL': settings.STATIC_URL,
         }
-        return template.context.Context(defaults)
+        return defaults
 
     def render(self, context):
         "Render a template from a list of possible templates based on the context."
