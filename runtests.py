@@ -13,18 +13,21 @@ if not settings.configured:
                 'NAME': ':memory:',
             }
         },
-        MIDDLEWARE_CLASSES=(
-            'django.middleware.common.CommonMiddleware',
-            'django.middleware.csrf.CsrfViewMiddleware',
-        ),
         INSTALLED_APPS=(
             'adcode',
         ),
         SITE_ID=1,
         SECRET_KEY='super-secret',
-        TEMPLATE_CONTEXT_PROCESSORS=(
-            'adcode.context_processors.current_placements',
-        )
+        TEMPLATES=[{
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'adcode.context_processors.current_placements',
+                ],
+            },
+        }],
     )
 
 
@@ -32,8 +35,7 @@ from django.test.utils import get_runner
 
 
 def runtests():
-    if hasattr(django, 'setup'):
-        django.setup()
+    django.setup()
     apps = sys.argv[1:] or ['adcode', ]
     TestRunner = get_runner(settings)
     test_runner = TestRunner(verbosity=1, interactive=True, failfast=False)
@@ -43,4 +45,3 @@ def runtests():
 
 if __name__ == '__main__':
     runtests()
-

@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='placement',
             name='size',
-            field=models.ForeignKey(related_name='placements', to='adcode.Size'),
+            field=models.ForeignKey(related_name='placements', to='adcode.Size', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

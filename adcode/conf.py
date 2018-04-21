@@ -12,7 +12,8 @@ PLACEMENTS_CONTEXT_KEY = '{}placements'.format(CONTEXT_KEY_PREFIX)
 
 PLACEHOLDER_DEFAULT = 'http://placehold.it/{width}x{height}'
 
-PLACEHOLDER_TEMPLATE = getattr(settings, 'ADCODE_PLACEHOLDER_TEMPLATE', PLACEHOLDER_DEFAULT)
+if not hasattr(settings, 'ADCODE_PLACEHOLDER_TEMPLATE'):
+    settings.ADCODE_PLACEHOLDER_TEMPLATE = PLACEHOLDER_DEFAULT
 
 SECTION_CACHE_KEY = 'alladcodesections'
 
@@ -20,4 +21,5 @@ PLACEMENTS_KEY_FORMAT = 'adcodeplacements{}'
 
 DEFAULT_TIMEOUT = 60 * 60 * 12  # 12 Hours
 
-CACHE_TIMEOUT = getattr(settings, 'ADCODE_CACHE_TIMEOUT', DEFAULT_TIMEOUT)
+if not hasattr(settings, 'ADCODE_CACHE_TIMEOUT'):
+    settings.ADCODE_CACHE_TIMEOUT = DEFAULT_TIMEOUT

@@ -3,30 +3,32 @@ from __future__ import unicode_literals
 
 import os
 
-from django.conf import settings
 from django.template import Template, TemplateSyntaxError
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
+from django.test import override_settings
 from django.test.client import RequestFactory
 
 from .base import AdCodeDataTestCase
-from ..conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
 
 
+TEST_TEMPLATE_SETTINGS = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [
+        os.path.join(os.path.dirname(__file__), 'templates'),
+    ],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'adcode.context_processors.current_placements',
+        ],
+    },
+}]
+
+
+@override_settings(TEMPLATES=TEST_TEMPLATE_SETTINGS)
 class TemplateTagTestCase(AdCodeDataTestCase):
     "Base case to patch TEMPLATE_DIRS while running tests."
-
-    def setUp(self):
-        super(TemplateTagTestCase, self).setUp()
-        self.template_dirs = settings.TEMPLATE_DIRS
-        settings.TEMPLATE_DIRS = (
-            os.path.join(os.path.dirname(__file__), 'templates'),
-        )
-
-    def tearDown(self):
-        super(TemplateTagTestCase, self).tearDown()
-        settings.TEMPLATE_DIRS = self.template_dirs
-        del self.template_dirs
 
 
 class RenderHeaderTestCase(TemplateTagTestCase):
@@ -88,7 +90,7 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         "Render a placement by the slug."
         result = self.render_template_tag()
         context = {'section': self.section, 'placement': self.placement}
-        expected = render_to_string('adcode/placement.html',context)
+        expected = render_to_string('adcode/placement.html', context)
         self.assertEqual(result, expected)
 
     def test_no_current_section(self):
@@ -109,7 +111,7 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         self.section.save()
         result = self.render_template_tag()
         context = {'section': self.section, 'placement': self.placement}
-        expected = render_to_string('adcode/section-1/placement.html',context)
+        expected = render_to_string('adcode/section-1/placement.html', context)
         self.assertEqual(result, expected)
 
     def test_placement_specific_template(self):
@@ -127,13 +129,12 @@ class RenderPlacementTestCase(TemplateTagTestCase):
         "Pass a variable for the slug name rather than a string."
         result = self.render_template_tag(slug='var', context={'var': 'footer'})
         context = {'section': self.section, 'placement': self.placement}
-        expected = render_to_string('adcode/placement.html',context)
+        expected = render_to_string('adcode/placement.html', context)
         self.assertEqual(result, expected)
 
     def test_unknown_variable(self):
         "Gracefully handle unknown variable given."
         result = self.render_template_tag(slug='var', context={})
-        context = {'section': self.section, 'placement': self.placement}
         self.assertEqual(result, '')
 
     def test_no_slug_given(self):

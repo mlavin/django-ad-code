@@ -1,19 +1,28 @@
+sudo: false
+
 language: python
 
-python:
-  - "2.7"
-
-env:
-  - TOXENV=py27-1.4.X
-  - TOXENV=py27-1.5.X,py32-1.5.X
-  - TOXENV=py27-1.6.X,py32-1.6.X
-  - TOXENV=py27-1.7.X,py32-1.7.X
+cache:
+  directories:
+    - $HOME/.cache/pip
 
 install:
-  - pip install tox
+  - pip install tox pip wheel codecov -U
 
 script:
     - tox
+
+matrix:
+  include:
+  - python: 2.7
+    env: TOXENV=py27-django18,py27-django111,docs
+  - python: 3.3
+    env: TOXENV=py33-django18
+  - python: 3.5
+    env: TOXENV=py35-django111,py35-django2
+
+after_success:
+  - codecov -e TOX_ENV
 
 branches:
   only:

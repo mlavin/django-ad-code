@@ -5,7 +5,6 @@ from django import template
 from django.conf import settings
 
 from adcode.conf import SECTION_CONTEXT_KEY, PLACEMENTS_CONTEXT_KEY
-from adcode.models import Placement
 
 register = template.Library()
 
@@ -26,7 +25,7 @@ class BaseSectionTemplateNode(template.Node):
 
     def get_template_list(self, context):
         "Construct list of templates to render. Implemented in subclasses."
-        raise NotImplemented() # pragma: no cover
+        raise NotImplemented()  # pragma: no cover
 
     def get_template_context(self, context):
         "Context passed to the sub-template."
@@ -39,16 +38,15 @@ class BaseSectionTemplateNode(template.Node):
             'MEDIA_URL': settings.MEDIA_URL,
             'STATIC_URL': settings.STATIC_URL,
         }
-        return template.context.Context(defaults)
+        return defaults
 
     def render(self, context):
         "Render a template from a list of possible templates based on the context."
         templates = self.get_template_list(context)
         if templates:
             inner = template.loader.select_template(templates)
-            nodelist = inner.nodelist
             new_context = self.get_template_context(context)
-            return nodelist.render(new_context)
+            return inner.render(new_context)
         else:
             return ''
 
@@ -82,7 +80,7 @@ def render_section_header(parser, token):
     """
     Retrieves the current section from the context and renders the
     appropriate header template. Requires the template to be rendered with
-    a RequestContext and 'adcode.context_processors.current_placements' in 
+    a RequestContext and 'adcode.context_processors.current_placements' in
     TEMPLATE_CONTEXT_PROCESSORS.
 
     Usage: {% render_section_header %}
@@ -143,7 +141,7 @@ def render_placement(parser, token):
     """
     Retrieves a placement by slug from the context and renders the
     appropriate template. Requires the template to be rendered with
-    a RequestContext and 'adcode.context_processors.current_placements' in 
+    a RequestContext and 'adcode.context_processors.current_placements' in
     TEMPLATE_CONTEXT_PROCESSORS.
 
     Usage: {% render_placement 'header' %}
